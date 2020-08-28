@@ -21,7 +21,7 @@ import java.util.regex.Pattern;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
-public class renamer {
+public class Renamer {
 	static PrintWriter writer;
 	static File folder = new File(System.getProperty("user.dir"));
 	static ArrayList<File> files = new ArrayList<File>(Arrays.asList(folder.listFiles()));
@@ -182,7 +182,7 @@ public class renamer {
 	public static void thanks() throws IOException, URISyntaxException
 	{
 		String []buttons2 = {"my FB profile","send E-mail","Donate by Paypal"};
-		ImageIcon happyIcon = new ImageIcon(renamer.class.getResource("/smile.png"));
+		ImageIcon happyIcon = new ImageIcon(Renamer.class.getResource("/smile.png"));
 		while(true)
 			{
 				int response = JOptionPane.showOptionDialog(null, "Thanks for using my program\nE-mail: khalidwaleed0@outlook.com",
