@@ -11,4 +11,4 @@ for example :\
 and it also renames subtitle files(srt,sub)
 
 Credits :\
-The icon image for the exe file is from : https://www.flaticon.com/
+You can get the icon image for the exe file for free from here: https://www.flaticon.com/
