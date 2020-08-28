@@ -10,5 +10,5 @@ for example :\
 \
 and it also renames subtitle files(srt,sub)
 
-Credits :
+Credits :\
 The icon image for the exe file is from : https://www.flaticon.com/
