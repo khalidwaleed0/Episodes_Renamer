@@ -9,3 +9,6 @@ for example :\
 [uplaoded by ...] Breaking Bad S1 05.mp4 ---> 05.mp4\
 \
 and it also renames subtitle files(srt,sub)
+
+Credits :\
+You can get the icon image for the exe file for free from here: https://www.flaticon.com/
