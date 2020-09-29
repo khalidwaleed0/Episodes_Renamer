@@ -1,8 +1,6 @@
 package Episode_Renamer;
-import java.awt.Desktop;
-import java.awt.Toolkit;
-import java.awt.datatransfer.Clipboard;
-import java.awt.datatransfer.StringSelection;
+
+import java.awt.EventQueue;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -10,65 +8,50 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 public class Renamer {
-	static PrintWriter writer;
-	static File folder = new File(System.getProperty("user.dir"));
-	static ArrayList<File> files = new ArrayList<File>(Arrays.asList(folder.listFiles()));
-	static List<String> extensions = Arrays.asList(new String[] {"mp4","m4a","m4v","f4v","f4a","mov","3gp","3gp2","3gpp","3gpp2","mpg",
+	public static PrintWriter writer;
+	private static File folder = new File(System.getProperty("user.dir"));
+	private static ArrayList<File> files = new ArrayList<File>(Arrays.asList(folder.listFiles()));
+	private static List<String> extensions = Arrays.asList(new String[] {"mp4","m4a","m4v","f4v","f4a","mov","3gp","3gp2","3gpp","3gpp2","mpg",
 			"mpeg","rmvb","wmv","wma","mkv","webm","flv","avi","amv","srt","sub"});
 	
 	public static void main(String[] args) throws IOException, URISyntaxException {
+		
 		filter();
 		if(files.isEmpty())
-			{
-				JOptionPane.showMessageDialog(null, "Couldn't find videos in this folder", "Error", JOptionPane.ERROR_MESSAGE);
-				System.exit(0);
-			}
-		String buttons[] = {"Rename", "Remove URL only", "Restore"};
-		int response = JOptionPane.showOptionDialog(null, "What can I help you with ?", "Episode_ReNamerV1.1", JOptionPane.YES_NO_CANCEL_OPTION, 
-				JOptionPane.PLAIN_MESSAGE, null, buttons, buttons[2]);
-		if(response == JOptionPane.YES_OPTION)	
-			{
-				writer = new PrintWriter("log(Do not delete).txt", "UTF-8");
-				writer.println("old Name -----------------------------------------> new Name");
-				writer.println("If episodes were not renamed correctly leave this and open the program again to restore old names");
-				rename();
-				writer.close();
-			}
-		else if(response == JOptionPane.NO_OPTION) 
-			{
-				writer = new PrintWriter("log(Do not delete).txt", "UTF-8");
-				writer.println("old Name -----------------------------------------> new Name");
-				writer.println("If episodes were not renamed correctly leave this and open the program again to restore old names");
-				removeURL();
-				writer.close();
-			}
-		else if(response == JOptionPane.CANCEL_OPTION) restore();
-		thanks();
+			JOptionPane.showMessageDialog(null, "Couldn't find videos in this folder", "Error", JOptionPane.ERROR_MESSAGE);
+		else
+			EventQueue.invokeLater(new Runnable() {
+				public void run() {
+					try {
+						Gui frame = new Gui();
+						frame.setVisible(true);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			});
 	}
 	
-	public static void filter()
+	private static void filter()
 	{
 		String extension;
 		for(int i=0 ; i<files.size() ; i++)
 		{
 			extension = files.get(i).getName().substring(files.get(i).getName().length()-3 , files.get(i).getName().length());
 			if(!extensions.contains(extension))
-				{
-					files.remove(i);
-					i--;
-				}
+			{
+				files.remove(i);
+				i--;
+			}
 		}
 	}
 	
@@ -97,12 +80,14 @@ public class Renamer {
 					 counter++;
 				}
 			}
-			if(counter==files.size()) finished = true;
+			if(counter==files.size())
+				finished = true;
 			else if(!pat1.equals(pat2)) pat1=pat2;
 			else	
 			{
 				int response = JOptionPane.showConfirmDialog(null, "Not all episodes were renamed .. Try the Beta Method ?");
-				if(response != JOptionPane.YES_OPTION)	finished = true;
+				if(response != JOptionPane.YES_OPTION)
+					finished = true;
 				else 
 				{
 					finished = true;
@@ -150,7 +135,7 @@ public class Renamer {
 		}
 	}
 	
-	public static void log(String oldName , String newName) throws FileNotFoundException, UnsupportedEncodingException
+	private static void log(String oldName , String newName) throws FileNotFoundException, UnsupportedEncodingException
 	{
 		writer.println(oldName+"<------------------->"+newName);
 	}
@@ -168,7 +153,6 @@ public class Renamer {
 		br.readLine();
 		while( (line = br.readLine())!=null )
 		{
-			System.out.println(line);
 			oldmat = oldpat.matcher(line);
 			newmat = newpat.matcher(line);
 			if(newmat.find() && oldmat.find())
@@ -179,29 +163,4 @@ public class Renamer {
 		br.close();
 	}
 	
-	public static void thanks() throws IOException, URISyntaxException
-	{
-		String []buttons2 = {"my FB profile","send E-mail","Donate by Paypal"};
-		ImageIcon happyIcon = new ImageIcon(Renamer.class.getResource("/smile.png"));
-		while(true)
-			{
-				int response = JOptionPane.showOptionDialog(null, "Thanks for using my program\nE-mail: khalidwaleed0@outlook.com",
-						"Episode_Renamer V1.1", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, happyIcon ,buttons2,buttons2[2]);
-				if(response == JOptionPane.YES_OPTION)
-					Desktop.getDesktop().browse(new URI("www.facebook.com/khalidwaleed0"));
-				else if	(response == JOptionPane.NO_OPTION)
-				{
-					StringSelection stringSelection = new StringSelection("khalidwaleed0@outlook.com");
-					Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-					clipboard.setContents(stringSelection, null);
-					JOptionPane.showMessageDialog(null, "E-mail copied Successfully");
-				}
-				else if (response == JOptionPane.CANCEL_OPTION)
-				{
-					Desktop.getDesktop().browse(new URI("www.paypal.me/khalidwaleed0"));
-				}
-				else if(response == JOptionPane.CLOSED_OPTION)
-					System.exit(0);
-			}
-	}
 }
