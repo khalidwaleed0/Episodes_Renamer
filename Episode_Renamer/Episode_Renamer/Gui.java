@@ -12,8 +12,9 @@ import javax.swing.plaf.ColorUIResource;
 import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.Toolkit;
-
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
@@ -42,10 +43,11 @@ public class Gui extends JFrame {
 	}
 
 	public Gui() {
+		setResizable(false);
 		UIManager.put("Button.focus", new ColorUIResource(new Color(0, 0, 0, 0)));
 		setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/appIcon.png")));
 		setTitle("Episodes Renamer");
-		setSize(361, 149);
+		setSize(352, 141);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		contentPane = new JPanel();
@@ -62,6 +64,7 @@ public class Gui extends JFrame {
 					Renamer.writer.println("If episodes were not renamed correctly leave this and open the program again to restore old names");
 					Renamer.rename();
 					Renamer.writer.close();
+					JOptionPane.showMessageDialog(null, "done");
 				}catch(Exception e1) {
 					e1.printStackTrace();
 				}
@@ -80,13 +83,14 @@ public class Gui extends JFrame {
 					Renamer.writer.println("If episodes were not renamed correctly leave this and open the program again to restore old names");
 					Renamer.removeURL();
 					Renamer.writer.close();
+					JOptionPane.showMessageDialog(null, "done");
 				}catch(Exception e1) {
 					e1.printStackTrace();
 				}
 			}
 		});
 		btnRemoveUrl.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		btnRemoveUrl.setBounds(116, 52, 112, 24);
+		btnRemoveUrl.setBounds(114, 52, 120, 24);
 		contentPane.add(btnRemoveUrl);
 		
 		JButton btnRestore = new JButton("Restore");
@@ -94,18 +98,19 @@ public class Gui extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					Renamer.restore();
+					JOptionPane.showMessageDialog(null, "done");
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
 			}
 		});
 		btnRestore.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		btnRestore.setBounds(246, 52, 89, 24);
+		btnRestore.setBounds(248, 52, 89, 24);
 		contentPane.add(btnRestore);
 		
 		JLabel lblNewLabel = new JLabel("What can I help you with ?");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblNewLabel.setBounds(10, 11, 177, 23);
+		lblNewLabel.setBounds(10, 12, 218, 23);
 		contentPane.add(lblNewLabel);
 		
 		JLabel lblProfile = new JLabel();
@@ -122,7 +127,7 @@ public class Gui extends JFrame {
 		});
 		lblProfile.setText("<html>"+"By : "+"<a href=\"\">Khalid Waleed</a>"+"</html>");
 		lblProfile.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		lblProfile.setBounds(215, 87, 120, 14);
+		lblProfile.setBounds(195, 88, 142, 14);
 		contentPane.add(lblProfile);
 		
 		JLabel lblGithub = new JLabel("");
@@ -138,7 +143,7 @@ public class Gui extends JFrame {
 		});
 		lblGithub.setText("<html>"+"<a href=\"\">visit my github</a>"+"</html>");
 		lblGithub.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		lblGithub.setBounds(10, 87, 89, 14);
+		lblGithub.setBounds(10, 87, 120, 14);
 		contentPane.add(lblGithub);
 		
 	}
