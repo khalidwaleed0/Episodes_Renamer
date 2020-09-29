@@ -145,7 +145,7 @@ public class Renamer {
 		Pattern oldpat = Pattern.compile("(.+)\\<");
 		Pattern newpat = Pattern.compile("\\>(.+\\.\\w\\w\\w\\w?)");
 		Matcher oldmat,newmat;
-		File log = new File(System.getProperty("user.dir")+"\\log(Do not delete).txt");
+		File log = new File(System.getProperty("user.dir")+File.separator+"log(Do not delete).txt");
 		FileReader fr = new FileReader(log);
 		BufferedReader br = new BufferedReader(fr);
 		String line;
@@ -156,9 +156,7 @@ public class Renamer {
 			oldmat = oldpat.matcher(line);
 			newmat = newpat.matcher(line);
 			if(newmat.find() && oldmat.find())
-				{
-					files.get(files.indexOf(new File(System.getProperty("user.dir")+"\\"+newmat.group(1)))).renameTo(new File(oldmat.group(1)));
-				}
+				files.get(files.indexOf(new File(System.getProperty("user.dir")+File.separator+newmat.group(1)))).renameTo(new File(oldmat.group(1)));
 		}
 		br.close();
 	}
