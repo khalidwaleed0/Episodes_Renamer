@@ -25,7 +25,6 @@ public class Renamer {
 	
 	public static void main(String[] args) throws IOException, URISyntaxException {
 		
-		filter();
 		if(files.isEmpty())
 			JOptionPane.showMessageDialog(null, "Couldn't find videos in this folder", "Error", JOptionPane.ERROR_MESSAGE);
 		else
@@ -41,8 +40,9 @@ public class Renamer {
 			});
 	}
 	
-	private static void filter()
+	public static void filter()
 	{
+		files = new ArrayList<File>(Arrays.asList(folder.listFiles()));
 		String extension;
 		for(int i=0 ; i<files.size() ; i++)
 		{

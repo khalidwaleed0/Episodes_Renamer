@@ -47,7 +47,7 @@ public class Gui extends JFrame {
 		UIManager.put("Button.focus", new ColorUIResource(new Color(0, 0, 0, 0)));
 		setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/appIcon.png")));
 		setTitle("Episodes Renamer");
-		setSize(352, 141);
+		setSize(365, 147);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		contentPane = new JPanel();
@@ -59,6 +59,7 @@ public class Gui extends JFrame {
 		btnRename.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
+					Renamer.filter();
 					Renamer.writer = new PrintWriter("log(Do not delete).txt", "UTF-8");
 					Renamer.writer.println("old Name -----------------------------------------> new Name");
 					Renamer.writer.println("If episodes were not renamed correctly leave this and open the program again to restore old names");
@@ -78,6 +79,7 @@ public class Gui extends JFrame {
 		btnRemoveUrl.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
+					Renamer.filter();
 					Renamer.writer = new PrintWriter("log(Do not delete).txt", "UTF-8");
 					Renamer.writer.println("old Name -----------------------------------------> new Name");
 					Renamer.writer.println("If episodes were not renamed correctly leave this and open the program again to restore old names");
@@ -97,6 +99,7 @@ public class Gui extends JFrame {
 		btnRestore.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
+					Renamer.filter();
 					Renamer.restore();
 					JOptionPane.showMessageDialog(null, "done");
 				} catch (IOException e1) {
