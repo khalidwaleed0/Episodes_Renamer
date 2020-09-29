@@ -24,7 +24,7 @@ public class Renamer {
 			"mpeg","rmvb","wmv","wma","mkv","webm","flv","avi","amv","srt","sub"});
 	
 	public static void main(String[] args) throws IOException, URISyntaxException {
-		
+		filter();
 		if(files.isEmpty())
 			JOptionPane.showMessageDialog(null, "Couldn't find videos in this folder", "Error", JOptionPane.ERROR_MESSAGE);
 		else
