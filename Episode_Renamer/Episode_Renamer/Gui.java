@@ -45,7 +45,7 @@ public class Gui extends JFrame {
 		UIManager.put("Button.focus", new ColorUIResource(new Color(0, 0, 0, 0)));
 		setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/appIcon.png")));
 		setTitle("Episodes Renamer");
-		setSize(361, 149);
+		setSize(371, 156);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		contentPane = new JPanel();
